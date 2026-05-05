@@ -8,7 +8,7 @@ enum Currency: String {
     case BYN
     case RUB // для проверки nil
 }
-func getExchangeRate(from: Currency, to: Currency)->Double? {
+func getExchangeRate(from: Currency, to: Currency) ->Double? {
     let rates: [Currency: [Currency: Double]] = [
         .USD: [.EUR: 0.9, .BYN: 3.2],
         .EUR: [.USD: 1.1, .BYN: 3.5],
@@ -20,7 +20,7 @@ func getExchangeRate(from: Currency, to: Currency)->Double? {
     return rates[from]?[to]
 }
 
-func convertCurrency(amount: Double, from: Currency, to: Currency)-> Double? {
+func convertCurrency(amount: Double, from: Currency, to: Currency) -> Double? {
     guard let rate = getExchangeRate(from: from, to: to) else {
         return nil
     }
@@ -30,8 +30,7 @@ func convertCurrency(amount: Double, from: Currency, to: Currency)-> Double? {
 // пример: Курс не найден (отсуствует значение валюты RUB)
 if let result = convertCurrency(amount: 1, from: .USD, to: .RUB) {
     print("Сконвертированная сумма: \(result)")
-}
-else {
+} else {
     print("Курс не найден")
 }
 
@@ -53,7 +52,8 @@ enum Grade: Int {
     case C = 70
     case D = 60
     case F = 0
-    func getLetterGrade(score: Int)->Grade?{
+}
+    func getLetterGrade(score: Int) ->Grade? {
         guard score >= 0 && score <= 100 else {
             return nil
         }
@@ -73,19 +73,22 @@ enum Grade: Int {
     }
     
     
-    func printExamResult(name: String, score: Int)-> String {
-        if let grade = getLetterGrade(score: score) {
-            return "\(name) получил \(grade) (Балл: \(score))"
-        }else {
-            return "\(name) получил недопустимый балл: \(score)"
-        }
-        
-        
-        
-        // Студенты получили допустимые баллы
-        print(printExamResult(name: "Денис", score: 90))
-        print(printExamResult(name: "Виктор", score: 73))
-        //  НУЖНА ПОМОЩЬ!!! Что-то не так, не могу разобраться почему не выводит значения. возможно накосячил с } всё перепробовал..
+func printExamResult(name: String, score: Int)-> String {
+    if let grade = getLetterGrade(score: score) {
+        return "\(name) получил \(grade) (Балл: \(score))"
+    }else {
+        return "\(name) получил недопустимый балл: \(score)"
     }
 }
+    
+    
+    
+// Студенты получили допустимые баллы
+print(printExamResult(name: "Денис", score: 90))
+print(printExamResult(name: "Виктор", score: 73))
+print(printExamResult(name: "Петр", score: 0))
+
+// Студенты получили недопустимые баллы
+print(printExamResult(name: "Павел", score: 121))
+print(printExamResult(name: "Генадий", score: -1))
 
